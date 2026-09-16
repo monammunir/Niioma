@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIIOMA — The New Operating System for Global Business</title>
+  <meta name="description" content="NIIOMA unites enterprises, vendors, and professionals in a powerful AI-driven ecosystem—scaling trust, reducing friction, and accelerating digital transformation.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23050814' stroke='%2338bdf8' stroke-width='2'/%3E%3Cpath d='M10 22V10l12 12V10' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Syncopate, Syne & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syncopate:wght@400;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Space Background Glow & Dynamic Dust -->
+  <div class="space-backdrop">
+    <div class="radial-glow glow-top"></div>
+    <div class="radial-glow glow-center"></div>
+    <canvas id="ambient-particles"></canvas>
+  </div>
+
+  <!-- Floating Pill Header Navigation (Pinned Globally) -->
+  <header class="navbar-wrapper">
+    <nav class="pill-navbar" id="navbar">
+      <!-- Brand Logo -->
+      <a href="#slide-hero" class="nav-brand" data-slide="0">
+        <span class="brand-text">NIIOMA</span>
+      </a>
+
+      <!-- Center Nav Links connected to Horizontal Slides -->
+      <ul class="nav-links">
+        <li><a href="#slide-hero" class="nav-link active" data-slide="0">Home</a></li>
+        <li><a href="#slide-about" class="nav-link" data-slide="1">About</a></li>
+        <li><a href="#slide-capabilities" class="nav-link" data-slide="2">Capabilities</a></li>
+        <li><a href="#slide-how-it-works" class="nav-link" data-slide="3">How It Works</a></li>
+        <li><a href="#slide-ecosystem" class="nav-link" data-slide="4">Ecosystem</a></li>
+        <li><a href="#slide-join" class="nav-link" data-slide="5">Join</a></li>
+      </ul>
+
+      <!-- Right Actions -->
+      <div class="nav-actions">
+        <div class="lang-selector" title="Language Selector">
+          <span>EN</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <a href="#login" class="nav-login" id="loginBtn">Login</a>
+        <button class="nav-cta-btn open-modal-btn">
+          <span>Register Interest</span>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <!-- Mobile Dropdown -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#slide-hero" class="mobile-link" data-slide="0">Home</a>
+      <a href="#slide-about" class="mobile-link" data-slide="1">About</a>
+      <a href="#slide-capabilities" class="mobile-link" data-slide="2">Capabilities</a>
+      <a href="#slide-how-it-works" class="mobile-link" data-slide="3">How It Works</a>
+      <a href="#slide-ecosystem" class="mobile-link" data-slide="4">Ecosystem</a>
+      <a href="#slide-join" class="mobile-link" data-slide="5">Join</a>
+      <div class="mobile-actions">
+        <a href="#login" class="mobile-link-login">Login</a>
+        <button class="mobile-cta-btn open-modal-btn">Register Interest</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Horizontal Scroll Viewport Container -->
+  <div class="horizontal-scroll-container" id="horizontalContainer">
+
+    <!-- ====================================================================
+         SLIDE 1: HERO SECTION (use.mp4 - Expanded Full-Bleed Luminous Arc)
+         ==================================================================== -->
+    <section class="horizontal-slide slide-hero" id="slide-hero" data-index="0">
+      
+      <!-- Expanded Full-Bleed Video Background -->
+      <div class="hero-video-fullbleed">
+        <video 
+          class="bg-video-full" 
+          autoplay 
+          loop 
+          muted 
+          playsinline 
+          poster="assets/hero-poster.jpg"
+          preload="auto">
+          <source src="assets/niioma-bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-vignette-overlay"></div>
+      </div>
+
+      <!-- Hero Foreground Content -->
+      <div class="hero-content">
+        <h1 class="brand-title" aria-label="NIIOMA">
+          <span class="letter" style="--i: 1">N</span>
+          <span class="letter" style="--i: 2">I</span>
+          <span class="letter" style="--i: 3">I</span>
+          <span class="letter" style="--i: 4">O</span>
+          <span class="letter" style="--i: 5">M</span>
+          <span class="letter" style="--i: 6">A</span>
+        </h1>
+
+        <p class="hero-tagline">
+          THE NEW OPERATING SYSTEM FOR GLOBAL BUSINESS
+        </p>
+
+        <div class="hero-cta-wrapper">
+          <button class="hero-cta-btn open-modal-btn">
+            <span class="cta-inner-text">Register Your Interest</span>
+          </button>
+          <p class="hero-subtext">
+            A New Dawn is Coming • Scaling Trust & Accelerating Transformation
+          </p>
+        </div>
+      </div>
+
+      <!-- Scroll Hint -->
+      <div class="scroll-cue" id="scrollCue">
+        <span>SCROLL TO EXPLORE</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SLIDE 2: ABOUT NIIOMA & PLATFORM (use (1).mp4 - 3D Tablet Display)
+         ==================================================================== -->
+    <section class="horizontal-slide slide-about" id="slide-about" data-index="1">
+      <div class="slide-split-layout">
+        
+        <!-- Left Column: Story & Core Values -->
+        <div class="split-col content-col">
+          <div class="section-badge">ABOUT NIIOMA</div>
+          <h2 class="section-title">Intelligent. Scalable. Autonomous.</h2>
+          <p class="section-lead">
+            NIIOMA unites enterprises, vendors, and professionals in a powerful AI-driven ecosystem—scaling trust, reducing friction, and accelerating digital transformation.
+          </p>
+
+          <div class="values-grid">
+            <div class="value-item">
+              <span class="value-bullet">01</span>
+              <div class="value-text">
+                <h4>Make it easy</h4>
+                <p>Radically simplify enterprise commerce and cross-border digital engagement.</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <span class="value-bullet">02</span>
+              <div class="value-text">
+                <h4>Move with purpose</h4>
+                <p>Agile, AI-accelerated delivery that converts strategy into measurable outcomes.</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <span class="value-bullet">03</span>
+              <div class="value-text">
+                <h4>Achieve brilliance</h4>
+                <p>Pioneering autonomous intelligence at the intersection of business & tech.</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <span class="value-bullet">04</span>
+              <div class="value-text">
+                <h4>Lead with heart</h4>
+                <p>Unshakable commitment to governance, security, and human-centric progress.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="split-actions">
+            <button class="glass-pill-btn open-modal-btn">Explore Ecosystem</button>
+          </div>
+        </div>
+
+        <!-- Right Column: 3D Tablet Device with Video -->
+        <div class="split-col media-col">
+          <div class="tablet-mockup-card">
+            <div class="tablet-frame">
+              <div class="tablet-camera"></div>
+              <div class="tablet-screen">
+                <video 
+                  class="tablet-video" 
+                  autoplay 
+                  loop 
+                  muted 
+                  playsinline 
+                  poster="assets/poster-platform.jpg">
+                  <source src="assets/niioma-platform.mp4" type="video/mp4">
+                </video>
+                <div class="screen-hud-badge">LIVE ENTERPRISE NETWORK</div>
+              </div>
+            </div>
+            <div class="mockup-glow"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SLIDE 3: CAPABILITIES & AI CORE (use (3).mp4 - Holographic Globe)
+         ==================================================================== -->
+    <section class="horizontal-slide slide-capabilities" id="slide-capabilities" data-index="2">
+      
+      <!-- Central Background Holographic Earth Video with Seamless Blend -->
+      <div class="central-video-bg-seamless">
+        <video 
+          class="bg-video-seamless" 
+          autoplay 
+          loop 
+          muted 
+          playsinline 
+          poster="assets/poster-globe.jpg">
+          <source src="assets/niioma-globe.mp4" type="video/mp4">
+        </video>
+        <div class="seamless-mask"></div>
+      </div>
+
+      <!-- Centered Header & Cards -->
+      <div class="slide-centered-container">
+        <div class="section-badge">CORE CAPABILITIES</div>
+        <h2 class="section-title text-center">Engineered for Global Scale</h2>
+        <p class="section-lead text-center">
+          Comprehensive technological capabilities designed to power intelligent enterprises across all frontiers.
+        </p>
+
+        <div class="cards-trio-grid">
+          
+          <div class="glass-feature-card">
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+              </svg>
+            </div>
+            <h3>Cloud & Edge Computing</h3>
+            <p>High-performance multi-cloud fabric, distributed edge clusters, and hybrid workload orchestration.</p>
+            <span class="card-tag">Enterprise Resilience</span>
+          </div>
+
+          <div class="glass-feature-card highlight-card">
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+              </svg>
+            </div>
+            <h3>AI & Autonomous Systems</h3>
+            <p>End-to-end intelligent agent pipelines, decision automation, generative synthesis, and cognitive search.</p>
+            <span class="card-tag">Next-Gen Intelligence</span>
+          </div>
+
+          <div class="glass-feature-card">
+            <div class="card-icon-wrap">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h3>Cybersecurity & Governance</h3>
+            <p>Zero-trust verification protocols, encrypted multiparty computations, and automated compliance guards.</p>
+            <span class="card-tag">Maximum Trust</span>
+          </div>
+
+        </div>
+
+        <div class="capabilities-pills-row">
+          <span class="pill-mini">IT & Networking</span>
+          <span class="pill-mini">Data & Analytics</span>
+          <span class="pill-mini">App Engineering</span>
+          <span class="pill-mini">Digital Workspace</span>
+          <span class="pill-mini">Physical & Digital Convergence</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================================
+         SLIDE 4: HOW IT WORKS (Left Card | Center Visible Globe | Right Card)
+         ==================================================================== -->
+    <section class="horizontal-slide slide-how-it-works" id="slide-how-it-works" data-index="3">
+      
+      <div class="slide-centered-container max-w-1300">
+        <div class="section-badge">ARCHITECTURE</div>
+        <h2 class="section-title text-center">How NIIOMA Works</h2>
+        <p class="section-lead text-center">
+          A synchronized operating system bridging global demand with verified technical execution.
+        </p>
+
+        <!-- 3-Column Layout: Left Card, Center Globe, Right Card -->
+        <div class="how-it-works-trio">
+          
+          <!-- Left Card: For Enterprises -->
+          <div class="ecosystem-box card-left">
+            <div class="ecosystem-header">
+              <span class="ecosystem-number">01</span>
+              <div>
+                <h3>For Enterprises</h3>
+                <p class="ecosystem-sub">Scale agility, eliminate vendor risk</p>
+              </div>
+            </div>
+            <ul class="ecosystem-list">
+              <li><span>✓</span> Verified marketplace of vetted global IT & cloud vendors</li>
+              <li><span>✓</span> Automated SLA compliance & milestone escrow releases</li>
+              <li><span>✓</span> AI-driven capability matching tailored to enterprise stacks</li>
+              <li><span>✓</span> Full-lifecycle oversight with unified telemetry dashboards</li>
+            </ul>
+          </div>
+
+          <!-- Center Globe: Completely Unobstructed & Visible -->
+          <div class="globe-center-showcase">
+            <div class="globe-media-wrap">
+              <video 
+                class="globe-video" 
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                poster="assets/poster-network.jpg">
+                <source src="assets/niioma-network.mp4" type="video/mp4">
+              </video>
+              <div class="globe-halo-glow"></div>
+            </div>
+            <span class="globe-live-tag">SYNCHRONIZED ORBIT</span>
+          </div>
+
+          <!-- Right Card: For Vendors & Partners -->
+          <div class="ecosystem-box card-right">
+            <div class="ecosystem-header">
+              <span class="ecosystem-number">02</span>
+              <div>
+                <h3>For Vendors & Partners</h3>
+                <p class="ecosystem-sub">Instant access to top global demand</p>
+              </div>
+            </div>
+            <ul class="ecosystem-list">
+              <li><span>✓</span> Direct access to tier-1 enterprise RFPs without sales overhead</li>
+              <li><span>✓</span> Guaranteed prompt payment schedules & smart contracts</li>
+              <li><span>✓</span> Reputation scoring backed by verifiable performance track records</li>
+              <li><span>✓</span> Collaborative co-selling across global tech consortia</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Metrics Strip -->
+        <div class="metrics-strip">
+          <div class="metric-item">
+            <span class="metric-val">50+</span>
+            <span class="metric-lbl">Target Markets</span>
+          </div>
+          <div class="metric-separator"></div>
+          <div class="metric-item">
+            <span class="metric-val">8</span>
+            <span class="metric-lbl">Core Sectors</span>
+          </div>
+          <div class="metric-separator"></div>
+          <div class="metric-item">
+            <span class="metric-val">100%</span>
+            <span class="metric-lbl">Zero-Friction AI Matching</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================================
+         SLIDE 5: INDUSTRIES & GLOBAL DOMAINS
+         ==================================================================== -->
+    <section class="horizontal-slide slide-ecosystem" id="slide-ecosystem" data-index="4">
+      <div class="slide-centered-container">
+        <div class="section-badge">CROSS-INDUSTRY IMPACT</div>
+        <h2 class="section-title text-center">Powering Critical Industries</h2>
+        <p class="section-lead text-center">
+          From high-velocity financial systems to precision healthcare and smart manufacturing.
+        </p>
+
+        <div class="industries-interactive-grid">
+          
+          <div class="industry-card">
+            <div class="industry-badge">BFSI</div>
+            <h4>Banking & Finance</h4>
+            <p>Real-time settlement systems, algorithmic risk assessment, and regulatory compliance networks.</p>
+          </div>
+
+          <div class="industry-card">
+            <div class="industry-badge">HEALTH</div>
+            <h4>Healthcare & Life Sciences</h4>
+            <p>Secure health informatics, HIPAA-compliant AI pipelines, and clinical data orchestration.</p>
+          </div>
+
+          <div class="industry-card">
+            <div class="industry-badge">MFG</div>
+            <h4>Smart Manufacturing</h4>
+            <p>Industrial IoT telemetry, digital twins, predictive maintenance, and supply chain automation.</p>
+          </div>
+
+          <div class="industry-card">
+            <div class="industry-badge">TMT</div>
+            <h4>Telecom, Media & Tech</h4>
+            <p>Next-gen 5G routing, distributed edge nodes, media distribution, and unified telecom fabrics.</p>
+          </div>
+
+          <div class="industry-card">
+            <div class="industry-badge">AGRI</div>
+            <h4>Agriculture & Resources</h4>
+            <p>Precision crop telemetry, autonomous field robotics, and sustainable resource distribution.</p>
+          </div>
+
+          <div class="industry-card">
+            <div class="industry-badge">AUTO</div>
+            <h4>Automotive & Mobility</h4>
+            <p>Connected vehicle clouds, autonomous telematics, and smart mobility management systems.</p>
+          </div>
+
+          <div class="industry-card">
+            <div class="industry-badge">UTIL</div>
+            <h4>Energy & Utilities</h4>
+            <p>Smart grid monitoring, renewables management, and mission-critical utility infrastructure.</p>
+          </div>
+
+          <div class="industry-card">
+            <div class="industry-badge">GOV</div>
+            <h4>Public Sector</h4>
+            <p>Citizen-centric digital portals, sovereign data architectures, and resilient public infrastructure.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SLIDE 6: CTA / REGISTER INTEREST (Expanded Full-Bleed Video)
+         ==================================================================== -->
+    <section class="horizontal-slide slide-join" id="slide-join" data-index="5">
+      
+      <!-- Expanded Full-Bleed Video Background -->
+      <div class="hero-video-fullbleed">
+        <video 
+          class="bg-video-full" 
+          autoplay 
+          loop 
+          muted 
+          playsinline 
+          poster="assets/hero-poster.jpg">
+          <source src="assets/niioma-bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-vignette-overlay"></div>
+      </div>
+
+      <div class="hero-content">
+        <div class="section-badge">A NEW DAWN IS COMING</div>
+        <h2 class="closing-title">Ready to Transform Your Enterprise?</h2>
+        <p class="hero-tagline max-w-700">
+          NIIOMA unites enterprises, vendors, and professionals in a powerful AI-driven ecosystem—scaling trust, reducing friction, and accelerating digital transformation.
+        </p>
+
+        <div class="hero-cta-wrapper">
+          <button class="hero-cta-btn open-modal-btn">
+            <span class="cta-inner-text">Register Your Interest</span>
+          </button>
+          <p class="hero-subtext">
+            Join the Founding Enterprise Cohort • Early Access Open
+          </p>
+        </div>
+
+        <div class="closing-footer-meta">
+          <span>&copy; 2026 NIIOMA Ltd. All rights reserved.</span>
+          <span class="meta-sep">•</span>
+          <a href="mailto:info@niioma.com" class="meta-link">info@niioma.com</a>
+          <span class="meta-sep">•</span>
+          <a href="#slide-hero" class="meta-link" data-slide="0">Back to Top</a>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- Interactive Early Access Registration Modal -->
+  <div class="modal-backdrop" id="registerModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <div class="modal-badge">EARLY ACCESS</div>
+        <h2 class="modal-title">Register Your Interest</h2>
+        <p class="modal-subtitle">Join global enterprises and top technology vendors pioneering the future with NIIOMA.</p>
+      </div>
+      <form class="modal-form" id="registerForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label for="workEmail">Work Email</label>
+          <input type="email" id="workEmail" placeholder="sarah@enterprise.com" required>
+        </div>
+        <div class="form-group">
+          <label for="interestType">I represent</label>
+          <select id="interestType" required>
+            <option value="" disabled selected>Select category...</option>
+            <option value="enterprise">Global Enterprise</option>
+            <option value="vendor">Solution Provider / Vendor</option>
+            <option value="consultant">Industry Professional</option>
+            <option value="investor">Strategic Partner / Investor</option>
+          </select>
+        </div>
+        <button type="submit" class="modal-submit-btn" id="submitBtn">
+          <span>Join the Ecosystem</span>
+        </button>
+        <div id="formSuccessMessage" class="form-success hidden">
+          ✓ Thank you for registering. Our enterprise onboarding team will contact you shortly.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
