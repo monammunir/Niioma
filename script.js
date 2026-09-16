@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initAmbientParticles();
   initModalHandling();
   initMobileMenu();
+  initInteractiveDeviceParallax();
+  initInteractiveCardsTilt();
 });
 
 /* ==========================================================================
@@ -43,6 +45,49 @@ function initHorizontalScrollEngine() {
     // Update Top Nav Links active state
     navLinks.forEach((link, idx) => {
       link.classList.toggle('active', idx === index);
+    });
+
+    // Update Slide Active state to trigger entry animations
+    slides.forEach((slide, idx) => {
+      if (idx === index) {
+        if (!slide.classList.contains('slide-active')) {
+          slide.classList.add('slide-active');
+        } else {
+          // Re-trigger animations by briefly removing and adding class with reflow
+          slide.classList.remove('slide-active');
+          void slide.offsetWidth;
+          slide.classList.add('slide-active');
+        }
+
+        // Animate counter numbers on Slide 4
+        if (slide.classList.contains('slide-how-it-works')) {
+          animateCounters(slide);
+        }
+      } else {
+        slide.classList.remove('slide-active');
+      }
+    });
+  }
+
+  function animateCounters(slide) {
+    const vals = slide.querySelectorAll('.metric-val[data-target]');
+    vals.forEach(val => {
+      const target = parseInt(val.getAttribute('data-target'), 10);
+      const suffix = val.getAttribute('data-suffix') || '';
+      const duration = 1200;
+      const startTime = performance.now();
+
+      function updateNumber(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(ease * target);
+        val.textContent = current + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(updateNumber);
+        }
+      }
+      requestAnimationFrame(updateNumber);
     });
   }
 
@@ -332,5 +377,50 @@ function initMobileMenu() {
 
   toggle.addEventListener('click', () => {
     menu.classList.toggle('open');
+  });
+}
+
+/* ==========================================================================
+   3D Device & Cards Mouse Parallax Interactive Effects
+   ========================================================================== */
+function initInteractiveDeviceParallax() {
+  const slideAbout = document.getElementById('slide-about');
+  const card = document.querySelector('.tablet-mockup-card');
+  if (!slideAbout || !card) return;
+
+  let rafId = null;
+
+  slideAbout.addEventListener('mousemove', (e) => {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      const rect = slideAbout.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const rotY = -6 + x * 18;
+      const rotX = 2 - y * 14;
+
+      card.style.transform = `perspective(1200px) rotateY(${rotY.toFixed(2)}deg) rotateX(${rotX.toFixed(2)}deg) translateY(${(-y * 12).toFixed(1)}px)`;
+    });
+  });
+
+  slideAbout.addEventListener('mouseleave', () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    card.style.transform = '';
+  });
+}
+
+function initInteractiveCardsTilt() {
+  const cards = document.querySelectorAll('.glass-feature-card, .ecosystem-box, .industry-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `translateY(-6px) perspective(800px) rotateY(${(x * 8).toFixed(2)}deg) rotateX(${(-y * 8).toFixed(2)}deg) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
   });
 }
