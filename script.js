@@ -49,6 +49,7 @@ function initHorizontalScrollEngine() {
 
     // Update Slide Active state to trigger entry animations
     slides.forEach((slide, idx) => {
+      const slideVideos = slide.querySelectorAll('video');
       if (idx === index) {
         if (!slide.classList.contains('slide-active')) {
           slide.classList.add('slide-active');
@@ -59,12 +60,31 @@ function initHorizontalScrollEngine() {
           slide.classList.add('slide-active');
         }
 
+        // Play active slide videos at high speed (1.45x)
+        slideVideos.forEach((v) => {
+          v.playbackRate = 1.45;
+          if (v.paused) v.play().catch(() => {});
+        });
+
         // Animate counter numbers on Slide 4
         if (slide.classList.contains('slide-how-it-works')) {
           animateCounters(slide);
         }
       } else {
         slide.classList.remove('slide-active');
+
+        // Pause distant videos (more than 1 slide away) to release GPU decoding load
+        if (Math.abs(idx - index) > 1) {
+          slideVideos.forEach((v) => {
+            if (!v.paused) v.pause();
+          });
+        } else {
+          // Keep immediate adjacent slide ready
+          slideVideos.forEach((v) => {
+            v.playbackRate = 1.45;
+            if (v.paused) v.play().catch(() => {});
+          });
+        }
       }
     });
   }
@@ -196,18 +216,35 @@ function initHorizontalScrollEngine() {
 }
 
 /* ==========================================================================
-   Video Playback Assurance
+   Video Playback Assurance & High-Speed Fluidity Engine
    ========================================================================== */
 function initVideoPlayback() {
   const videos = document.querySelectorAll('video');
+  const SPEED_MULTIPLIER = 1.45;
+
   videos.forEach((video) => {
     video.muted = true;
     video.playsInline = true;
+    video.playbackRate = SPEED_MULTIPLIER;
+
+    // Enforce high speed whenever video plays or loads metadata
+    video.addEventListener('play', () => {
+      video.playbackRate = SPEED_MULTIPLIER;
+    });
+    video.addEventListener('loadedmetadata', () => {
+      video.playbackRate = SPEED_MULTIPLIER;
+    });
+
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
+      playPromise.then(() => {
+        video.playbackRate = SPEED_MULTIPLIER;
+      }).catch(() => {
         const startVideos = () => {
-          videos.forEach(v => v.play().catch(() => {}));
+          videos.forEach((v) => {
+            v.playbackRate = SPEED_MULTIPLIER;
+            v.play().catch(() => {});
+          });
           document.removeEventListener('click', startVideos);
           document.removeEventListener('touchstart', startVideos);
         };
@@ -411,16 +448,40 @@ function initInteractiveDeviceParallax() {
 }
 
 function initInteractiveCardsTilt() {
-  const cards = document.querySelectorAll('.glass-feature-card, .ecosystem-box, .industry-card');
+  const cards = document.querySelectorAll('.glass-feature-card, .ecosystem-box, .industry-card, .principle-node');
   cards.forEach(card => {
+    let rafId = null;
+
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `translateY(-6px) perspective(800px) rotateY(${(x * 8).toFixed(2)}deg) rotateX(${(-y * 8).toFixed(2)}deg) scale(1.02)`;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const px = e.clientX - rect.left;
+        const py = e.clientY - rect.top;
+        const x = (px / rect.width) - 0.5;
+        const y = (py / rect.height) - 0.5;
+
+        // Set dynamic spotlight CSS custom properties
+        card.style.setProperty('--mouse-x', `${px.toFixed(1)}px`);
+        card.style.setProperty('--mouse-y', `${py.toFixed(1)}px`);
+        card.style.setProperty('--mouse-x-pct', `${((px / rect.width) * 100).toFixed(1)}%`);
+        card.style.setProperty('--mouse-y-pct', `${((py / rect.height) * 100).toFixed(1)}%`);
+
+        if (card.classList.contains('principle-node')) {
+          card.style.transform = 'translateX(8px)';
+        } else {
+          card.style.transform = `translateY(-8px) perspective(900px) rotateY(${(x * 10).toFixed(2)}deg) rotateX(${(-y * 10).toFixed(2)}deg) scale(1.025)`;
+        }
+      });
     });
+
     card.addEventListener('mouseleave', () => {
+      if (rafId) cancelAnimationFrame(rafId);
       card.style.transform = '';
+      card.style.removeProperty('--mouse-x');
+      card.style.removeProperty('--mouse-y');
+      card.style.removeProperty('--mouse-x-pct');
+      card.style.removeProperty('--mouse-y-pct');
     });
   });
 }
