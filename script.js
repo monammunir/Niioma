@@ -62,9 +62,18 @@ function initHorizontalScrollEngine() {
 
         // Play active slide videos at high speed (1.45x)
         slideVideos.forEach((v) => {
+          if (v.preload === 'none') v.preload = 'auto';
           v.playbackRate = 1.45;
           if (v.paused) v.play().catch(() => {});
         });
+
+        // Warm up adjacent next slide video in the background during idle time
+        const nextSlide = slides[idx + 1];
+        if (nextSlide) {
+          nextSlide.querySelectorAll('video').forEach(nv => {
+            if (nv.preload === 'none') nv.preload = 'auto';
+          });
+        }
 
         // Animate counter numbers on Slide 4
         if (slide.classList.contains('slide-how-it-works')) {
@@ -77,12 +86,6 @@ function initHorizontalScrollEngine() {
         if (Math.abs(idx - index) > 1) {
           slideVideos.forEach((v) => {
             if (!v.paused) v.pause();
-          });
-        } else {
-          // Keep immediate adjacent slide ready
-          slideVideos.forEach((v) => {
-            v.playbackRate = 1.45;
-            if (v.paused) v.play().catch(() => {});
           });
         }
       }
@@ -253,40 +256,60 @@ function initHorizontalScrollEngine() {
    Video Playback Assurance & High-Speed Fluidity Engine
    ========================================================================== */
 function initVideoPlayback() {
-  const videos = document.querySelectorAll('video');
+  const allVideos = document.querySelectorAll('video');
   const SPEED_MULTIPLIER = 1.45;
 
-  videos.forEach((video) => {
+  // Configure high playback rate and mute on all videos
+  allVideos.forEach((video) => {
     video.muted = true;
     video.playsInline = true;
     video.playbackRate = SPEED_MULTIPLIER;
 
-    // Enforce high speed whenever video plays or loads metadata
     video.addEventListener('play', () => {
       video.playbackRate = SPEED_MULTIPLIER;
     });
     video.addEventListener('loadedmetadata', () => {
       video.playbackRate = SPEED_MULTIPLIER;
     });
+  });
 
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        video.playbackRate = SPEED_MULTIPLIER;
-      }).catch(() => {
-        const startVideos = () => {
-          videos.forEach((v) => {
+  // ONLY start Hero video on initial load (avoids 5 concurrent video decoders!)
+  const heroSlide = document.getElementById('slide-hero');
+  if (heroSlide) {
+    const heroVideos = heroSlide.querySelectorAll('video');
+    heroVideos.forEach((v) => {
+      v.playbackRate = SPEED_MULTIPLIER;
+      const playPromise = v.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          const unlockHero = () => {
             v.playbackRate = SPEED_MULTIPLIER;
             v.play().catch(() => {});
-          });
-          document.removeEventListener('click', startVideos);
-          document.removeEventListener('touchstart', startVideos);
-        };
-        document.addEventListener('click', startVideos, { once: true });
-        document.addEventListener('touchstart', startVideos, { once: true });
+            document.removeEventListener('click', unlockHero);
+            document.removeEventListener('touchstart', unlockHero);
+          };
+          document.addEventListener('click', unlockHero, { once: true });
+          document.addEventListener('touchstart', unlockHero, { once: true });
+        });
+      }
+    });
+  }
+
+  // Preload next slide in background during browser idle time
+  const warmupNext = () => {
+    const slideAbout = document.getElementById('slide-about');
+    if (slideAbout) {
+      slideAbout.querySelectorAll('video').forEach((v) => {
+        if (v.preload === 'none') v.preload = 'auto';
       });
     }
-  });
+  };
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => setTimeout(warmupNext, 400));
+  } else {
+    setTimeout(warmupNext, 600);
+  }
 }
 
 /* ==========================================================================

@@ -1,0 +1,11 @@
+﻿{
+  "name": "niioma",
+  "version": "1.0.0",
+  "description": "NIIOMA — The New Operating System for Global Business",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "NIIOMA",
+  "license": "ISC"
+}

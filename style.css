@@ -27,9 +27,9 @@
   --accent-violet: #a855f7;
   --accent-glow: rgba(56, 189, 248, 0.25);
 
-  --font-brand: 'Syncopate', sans-serif;
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-brand: 'Syncopate', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: 'Syne', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   --nav-height: 48px;
   --nav-top: 20px;
@@ -423,7 +423,7 @@ body {
 }
 
 .horizontal-slide.slide-active .section-badge {
-  animation: badgeCinematicReveal 0.85s var(--ease-cinematic) 0.1s both;
+  animation: badgeCinematicReveal 0.6s var(--ease-cinematic) 0.04s both;
 }
 
 @keyframes badgeCinematicReveal {
@@ -457,8 +457,8 @@ body {
 
 .horizontal-slide.slide-active .section-title {
   animation: 
-    titleDramatic3D 1.15s var(--ease-cinematic) 0.18s both,
-    titleShimmerSweep 2.8s ease-out 0.4s both;
+    titleDramatic3D 0.75s var(--ease-cinematic) 0.08s both,
+    titleShimmerSweep 2.2s ease-out 0.2s both;
 }
 
 @keyframes titleDramatic3D {
@@ -496,7 +496,7 @@ body {
 }
 
 .horizontal-slide.slide-active .section-lead {
-  animation: leadDramaticReveal 1.05s var(--ease-cinematic) 0.32s both;
+  animation: leadDramaticReveal 0.7s var(--ease-cinematic) 0.16s both;
 }
 
 @keyframes leadDramaticReveal {
@@ -607,20 +607,20 @@ body {
 }
 
 .slide-hero.slide-active .brand-title .letter {
-  animation: letterDramaticReveal 1.4s var(--ease-cinematic) both;
-  animation-delay: calc(0.1s + var(--i) * 0.08s);
+  animation: letterDramaticReveal 0.8s var(--ease-cinematic) both;
+  animation-delay: calc(0.02s + var(--i) * 0.035s);
 }
 
 @keyframes letterDramaticReveal {
   0% {
     opacity: 0;
-    transform: perspective(1000px) translateZ(100px) rotateX(85deg) translateY(65px);
-    filter: blur(20px);
+    transform: perspective(1000px) translateZ(80px) rotateX(75deg) translateY(45px);
+    filter: blur(14px);
     text-shadow: 0 0 0 rgba(56, 189, 248, 0);
   }
   60% {
     filter: blur(2px);
-    text-shadow: 0 0 55px rgba(56, 189, 248, 0.9), 0 0 80px rgba(99, 102, 241, 0.6);
+    text-shadow: 0 0 45px rgba(56, 189, 248, 0.9), 0 0 70px rgba(99, 102, 241, 0.6);
   }
   100% {
     opacity: 1;
@@ -644,15 +644,15 @@ body {
 }
 
 .slide-hero.slide-active .hero-tagline {
-  animation: taglineDramaticReveal 1.25s var(--ease-cinematic) 0.6s both;
+  animation: taglineDramaticReveal 0.75s var(--ease-cinematic) 0.18s both;
 }
 
 @keyframes taglineDramaticReveal {
   0% {
     opacity: 0;
     letter-spacing: 0.16em;
-    transform: translateY(30px);
-    filter: blur(12px);
+    transform: translateY(24px);
+    filter: blur(10px);
   }
   100% {
     opacity: 1;
@@ -674,7 +674,7 @@ body {
 
 .slide-hero.slide-active .hero-cta-wrapper,
 .slide-join.slide-active .hero-cta-wrapper {
-  animation: fadeUpReveal 1.1s var(--ease-cinematic) 0.85s both;
+  animation: fadeUpReveal 0.7s var(--ease-cinematic) 0.26s both;
 }
 
 .hero-cta-btn {
