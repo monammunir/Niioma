@@ -212,6 +212,40 @@ function initHorizontalScrollEngine() {
     }, 50);
   }, { passive: true });
 
+  // --- Dedicated Mobile Touch Swipe Gesture Detection ---
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+
+  window.addEventListener('touchstart', (e) => {
+    const modal = document.getElementById('registerModal');
+    if (modal && modal.classList.contains('active')) return;
+    if (e.touches.length === 1) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', (e) => {
+    const modal = document.getElementById('registerModal');
+    if (modal && modal.classList.contains('active')) return;
+    if (e.changedTouches.length === 1) {
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      const deltaY = e.changedTouches[0].clientY - touchStartY;
+      const elapsedTime = Date.now() - touchStartTime;
+
+      // Only trigger if horizontal swipe is dominant and fast
+      if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3 && elapsedTime < 450) {
+        if (deltaX < 0 && currentSlide < totalSlides - 1) {
+          scrollToSlide(currentSlide + 1);
+        } else if (deltaX > 0 && currentSlide > 0) {
+          scrollToSlide(currentSlide - 1);
+        }
+      }
+    }
+  }, { passive: true });
+
   updateActiveState(0);
 }
 
@@ -412,8 +446,15 @@ function initMobileMenu() {
 
   if (!toggle || !menu) return;
 
-  toggle.addEventListener('click', () => {
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
     menu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !toggle.contains(e.target)) {
+      menu.classList.remove('open');
+    }
   });
 }
 
