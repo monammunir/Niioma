@@ -366,11 +366,27 @@ body {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 110px 48px 60px;
+  justify-content: flex-start;
+  padding: 108px 36px 36px;
+  box-sizing: border-box;
+}
+
+.horizontal-slide::-webkit-scrollbar {
+  width: 6px;
+}
+
+.horizontal-slide::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+}
+
+.horizontal-slide::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* ==========================================================================
@@ -448,6 +464,8 @@ body {
   width: 100%;
   max-width: 1200px;
   perspective: 1200px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .brand-title {
@@ -571,7 +589,8 @@ body {
   width: 100%;
   max-width: 1200px;
   gap: clamp(24px, 4vw, 50px);
-  margin-top: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .split-col {
@@ -595,41 +614,41 @@ body {
   border: 1px solid rgba(56, 189, 248, 0.22);
   padding: 5px 14px;
   border-radius: 9999px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   text-transform: uppercase;
 }
 
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.1rem, 3.8vw, 3.2rem);
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
   font-weight: 700;
   color: #ffffff;
   line-height: 1.15;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   letter-spacing: -0.01em;
 }
 
 .section-lead {
-  font-size: clamp(0.92rem, 1.15vw, 1.04rem);
+  font-size: clamp(0.85rem, 1vw, 0.98rem);
   color: var(--text-secondary);
-  line-height: 1.55;
+  line-height: 1.5;
   max-width: 620px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .values-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .value-item {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 10px 14px;
+  padding: 8px 12px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid var(--border-glass);
   border-radius: 14px;
@@ -686,7 +705,7 @@ body {
 .tablet-mockup-card {
   position: relative;
   width: 100%;
-  max-width: 540px;
+  max-width: min(520px, 46vh);
   margin: 0 auto;
 }
 
@@ -770,6 +789,8 @@ body {
   text-align: center;
   width: 100%;
   max-width: 1180px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .max-w-1300 {
@@ -783,10 +804,10 @@ body {
 .cards-trio-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: clamp(14px, 1.6vw, 20px);
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 24px;
+  margin-top: 8px;
+  margin-bottom: 16px;
 }
 
 .glass-feature-card {
@@ -795,7 +816,7 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-glass);
   border-radius: 24px;
-  padding: 28px 24px;
+  padding: clamp(18px, 2.2vh, 24px) clamp(16px, 1.5vw, 22px);
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -818,31 +839,31 @@ body {
 }
 
 .card-icon-wrap {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   background: rgba(56, 189, 248, 0.1);
   border: 1px solid rgba(56, 189, 248, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--accent-cyan);
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .glass-feature-card h3 {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.18rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .glass-feature-card p {
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   color: var(--text-secondary);
-  line-height: 1.55;
-  margin-bottom: 20px;
+  line-height: 1.45;
+  margin-bottom: 14px;
   flex-grow: 1;
 }
 
@@ -881,13 +902,13 @@ body {
    ========================================================================== */
 .how-it-works-trio {
   display: grid;
-  grid-template-columns: 1fr minmax(280px, 360px) 1fr;
+  grid-template-columns: 1fr minmax(240px, 310px) 1fr;
   align-items: center;
   width: 100%;
   max-width: 1260px;
-  gap: 28px;
-  margin-top: 14px;
-  margin-bottom: 24px;
+  gap: clamp(16px, 2vw, 26px);
+  margin-top: 10px;
+  margin-bottom: 18px;
 }
 
 .globe-center-showcase {
@@ -900,8 +921,8 @@ body {
 
 .globe-media-wrap {
   position: relative;
-  width: 340px;
-  height: 340px;
+  width: clamp(230px, 28vh, 310px);
+  height: clamp(230px, 28vh, 310px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -950,7 +971,7 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-glass);
   border-radius: 24px;
-  padding: 26px 24px;
+  padding: clamp(18px, 2vh, 22px) clamp(18px, 1.6vw, 22px);
   text-align: left;
   transition: transform 0.3s var(--ease-spring), border-color 0.3s ease;
   box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7);
@@ -964,18 +985,18 @@ body {
 .ecosystem-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 18px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .ecosystem-number {
   font-family: var(--font-brand);
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--accent-purple);
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   background: rgba(139, 92, 246, 0.12);
   border: 1px solid rgba(139, 92, 246, 0.25);
   display: flex;
@@ -985,13 +1006,13 @@ body {
 
 .ecosystem-header h3 {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.12rem;
   font-weight: 700;
   color: #ffffff;
 }
 
 .ecosystem-sub {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-secondary);
 }
 
@@ -999,13 +1020,13 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .ecosystem-list li {
-  font-size: 0.84rem;
+  font-size: 0.81rem;
   color: var(--text-secondary);
-  line-height: 1.45;
+  line-height: 1.4;
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -1020,8 +1041,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 36px;
-  padding: 12px 32px;
+  gap: clamp(20px, 3vw, 36px);
+  padding: 10px 28px;
   background: rgba(15, 20, 32, 0.5);
   border: 1px solid var(--border-glass);
   border-radius: 9999px;
@@ -1061,16 +1082,16 @@ body {
 .industries-interactive-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: clamp(10px, 1.2vw, 15px);
   width: 100%;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .industry-card {
   background: rgba(15, 20, 34, 0.55);
   border: 1px solid var(--border-glass);
-  border-radius: 20px;
-  padding: 22px 20px;
+  border-radius: 18px;
+  padding: clamp(12px, 1.6vh, 18px) clamp(12px, 1.4vw, 16px);
   text-align: left;
   backdrop-filter: blur(14px);
   transition: all 0.25s var(--ease-spring);
@@ -1091,20 +1112,20 @@ body {
   background: rgba(56, 189, 248, 0.1);
   padding: 3px 8px;
   border-radius: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .industry-card h4 {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: #ffffff;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .industry-card p {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 /* ==========================================================================
@@ -1112,10 +1133,10 @@ body {
    ========================================================================== */
 .closing-title {
   font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   line-height: 1.15;
 }
 
@@ -1124,7 +1145,7 @@ body {
 }
 
 .closing-footer-meta {
-  margin-top: 50px;
+  margin-top: clamp(20px, 3.5vh, 40px);
   display: flex;
   align-items: center;
   justify-content: center;
